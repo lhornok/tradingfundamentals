@@ -12,12 +12,15 @@ def get_timezone_from_coords(latitude, longitude):
     else:
         return None
 
+def getTimeZoneCity(strCityName = 'Washington, DC'):
+    timezone = ''
+    geolocator = Nominatim(user_agent="app")
+    place_details = geolocator.geocode(strCityName)
+    timezone = get_timezone_from_coords(place_details[1][0], place_details[1][1])
+    return timezone
 
-# Fonction pour obtenir le fuseau horaire à partir du nom de la ville
-city_name='Washington, DC'
-geolocator = Nominatim(user_agent="app")
-place_details = geolocator.geocode(city_name)
-print (place_details)
-print ((place_details[1][0], place_details[1][1]))
-timezone = get_timezone_from_coords(place_details[1][0], place_details[1][1])
-print (timezone)
+def main():
+    return getTimeZoneCity()
+
+if __name__ == ('__main__'):
+    main()
