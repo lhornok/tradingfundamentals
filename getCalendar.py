@@ -7,6 +7,7 @@ from datetime import timedelta
 import requests
 import ics
 import pytz
+import findTimeZone
 
 
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'}
@@ -24,9 +25,8 @@ for event in calendar.events:
     if (event.name not in lstEvents):
         lstEvents.append(event.name)
     if (event.name == 'Producer Price Index'):
-        print (event.location)
-        print (pytz.timezone('Washington, D.C. '))
-        print (event.name, event.begin)
+        timezone = findTimeZone.getTimeZoneCity(strCityName=event.location)
+        print (event.location, timezone, event.name, event.begin)
         print ('-'*80)
 
 #for eventName in lstEvents:
